@@ -6,11 +6,16 @@ import { sidebar_routes } from "@/lib/datas/globalDatas";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Button } from "@material-tailwind/react";
+import { useDispatch, useSelector } from "react-redux";
+import { iClose, iMenu } from "@/lib/icons/icons";
+import { setIsOpen } from "@/redux/features/globals/globalsSlice";
 
 const SidebarUi = () => {
+  const { isOpen, colors } = useSelector((state) => state.global);
+  const dispatch = useDispatch();
   const { pathname } = useRouter();
   return (
-    <div className="max-w-[350px] min-w-[350px] w-full bg-blue-900 h-full px-4">
+    <div className="max-w-[350px] min-w-[350px] w-full bg-blue-900 h-full px-4 relative">
       <div className="flex items-center justify-center h-[150px] w-full">
         <Image className="w-[150px]" src={logo} alt="" />
       </div>
@@ -33,6 +38,14 @@ const SidebarUi = () => {
             </Button>
           </Link>
         ))}
+      </div>
+
+      <div
+        onClick={() => dispatch(setIsOpen(!isOpen))}
+        className={`w-[40px] h-[40px] text-white absolute top-3 -right-14 cursor-pointer flex justify-center items-center rounded`}
+        style={{ backgroundColor: colors.primary_color }}
+      >
+        {isOpen ? iClose : iMenu}
       </div>
     </div>
   );
