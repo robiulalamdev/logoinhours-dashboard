@@ -17,7 +17,9 @@ const SidebarUi = () => {
   return (
     <div className="max-w-[350px] min-w-[350px] w-full bg-blue-900 h-full px-4 relative">
       <div className="flex items-center justify-center h-[150px] w-full">
-        <Image className="w-[150px]" src={logo} alt="" />
+        <Link href="/">
+          <Image className="w-[150px]" src={logo} alt="" />
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 gap-[5px] w-full mt-[40px] ">

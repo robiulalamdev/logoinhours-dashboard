@@ -4,6 +4,7 @@ const initialState = {
   isOpen: false,
   colors: { primary_color: "#F78C21", background_color: "#ffff" },
   logo: null,
+  pagesTab: 1,
 };
 
 const globalsSlice = createSlice({
@@ -19,9 +20,13 @@ const globalsSlice = createSlice({
     setLogo: (state, action) => {
       state.logo = action.payload;
     },
+    setPagesTab: (state, action) => {
+      state.pagesTab = action.payload;
+    },
   },
 });
 
-export const { setIsOpen, setColors, setLogo } = globalsSlice.actions;
+export const { setIsOpen, setColors, setLogo, setPagesTab } =
+  globalsSlice.actions;
 
 export default globalsSlice.reducer;

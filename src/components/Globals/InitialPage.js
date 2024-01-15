@@ -29,14 +29,14 @@ const InitialPage = () => {
   };
 
   return (
-    <div className="container">
+    <div className="">
       <form
         onSubmit={() => handleSubmit(handleSave)}
-        className="grid md:grid-cols-4 gap-8 mt-[120px]"
+        className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-end gap-8 mt-[120px]"
       >
         <div className="col-span-4">
           <label
-            className="text-base font-medium uppercase leading-[26px] block"
+            className="text-xs sm:text-sm md:text-base font-medium uppercase leading-[26px] block"
             htmlFor=""
           >
             Logo
@@ -76,7 +76,7 @@ const InitialPage = () => {
         </div>
         <div>
           <label
-            className="text-base font-medium uppercase leading-[26px] block"
+            className="text-xs sm:text-sm md:text-base font-medium uppercase leading-[26px] block"
             htmlFor=""
           >
             Primary Color
@@ -105,7 +105,7 @@ const InitialPage = () => {
         </div>
         <div>
           <label
-            className="text-base font-medium uppercase leading-[26px] block"
+            className="text-xs sm:text-sm md:text-base font-medium uppercase leading-[26px] block"
             htmlFor=""
           >
             Background Color

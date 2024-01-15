@@ -14,7 +14,7 @@ module.exports = withMT({
     extend: {
       container: {
         center: true,
-        padding: "2rem",
+        padding: "10px",
         screens: {
           "2xl": "1440px",
         },

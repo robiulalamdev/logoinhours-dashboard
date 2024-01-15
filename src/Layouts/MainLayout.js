@@ -5,7 +5,7 @@ export default function MainLayout({ children }) {
     <main className="flex items-start justify-between">
       <Sidebar />
       <div className="flex-grow w-full h-screen bg-white overflow-y-auto">
-        {children}
+        <div className="container">{children}</div>
       </div>
     </main>
   );

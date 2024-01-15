@@ -9,7 +9,7 @@ const Sidebar = () => {
   const dispatch = useDispatch();
   return (
     <>
-      <div className="hidden md:block max-w-[350px] min-w-[350px] w-full h-screen">
+      <div className="hidden lg:block max-w-[350px] min-w-[350px] w-full h-screen">
         <SidebarUi />
       </div>
 
