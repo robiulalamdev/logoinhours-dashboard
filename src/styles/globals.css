@@ -1,3 +1,63 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+/* Webkit Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 0px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.oneLine {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.twoLine {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+}
+
+.ql-editor {
+  min-height: 140px !important;
+  /* border-radius: 7px; */
+  border: 2px dashed var(--Light-Gray, #d9dbdf);
+  opacity: 0.6;
+  background: var(--Ultra-Light-Grey, #f5f7f9);
+}
+
+.ql-toolbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  border: none !important;
+  max-width: 500px;
+  margin: 0 auto 15px auto;
+  min-height: 48px;
+  border-radius: 46px;
+  background: var(--Ultra-Light-Grey, #f5f7f9);
+}

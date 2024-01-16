@@ -3,6 +3,7 @@ import store from "@/redux/store";
 import "@/styles/globals.css";
 import { ThemeProvider } from "@material-tailwind/react";
 import { Provider } from "react-redux";
+import "react-quill/dist/quill.snow.css";
 
 export default function App({ Component, pageProps }) {
   return (

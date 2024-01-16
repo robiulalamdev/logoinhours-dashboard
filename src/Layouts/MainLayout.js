@@ -2,11 +2,11 @@ import Sidebar from "@/components/shared/Sidebar";
 
 export default function MainLayout({ children }) {
   return (
-    <main className="flex items-start justify-between w-full h-full max-h-screen">
+    <main className="flex justify-between items-start h-screen">
       <Sidebar />
-      <div className="flex-grow w-full h-screen max-h-screen bg-white overflow-y-auto">
-        <div className="container h-full">{children}</div>
-      </div>
+      <main className="grid grid-cols-1 h-full w-full flex-grow overflow-y-auto bg-white">
+        <div className="h-full w-full container mx-auto">{children}</div>
+      </main>
     </main>
   );
 }
