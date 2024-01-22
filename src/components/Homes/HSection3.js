@@ -19,8 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
 import { SpinnerCircularFixed } from "spinners-react";
 
-const HSection1 = ({ open, handleOpen, data }) => {
-  const { custom_logo } = useSelector((state) => state.home);
+const HSection3 = ({ open, handleOpen, data }) => {
   const { colors } = useSelector((state) => state.global);
   const dispatch = useDispatch();
   const { viewImg } = useViewImage();
@@ -38,24 +37,19 @@ const HSection1 = ({ open, handleOpen, data }) => {
   } = useForm();
 
   // stats
-  const [banners, setBanners] = useState([]);
+  const [image, setImage] = useState(null);
 
   // refs
-  const bannerRef = useRef();
+  const imageRef = useRef();
 
   const handleSave = async (data) => {
     const newData = data;
-
     const formData = new FormData();
 
-    if (banners?.length > 0) {
-      banners.forEach((file) => {
-        formData.append(`hero_section_banners`, file);
-      });
-      newData["hero_section"]["banners"] = banners;
+    if (image) {
+      formData.append(`boost_creativity_image`, image);
     }
     formData.append(`newData`, JSON.stringify(newData));
-
     const options = {
       data: formData,
     };
@@ -67,48 +61,42 @@ const HSection1 = ({ open, handleOpen, data }) => {
     }
   };
 
-  const removeImage = (index) => {
-    const data = [...banners];
-    data.splice(index, 1);
-    setBanners(data);
-  };
-
   useMemo(() => {
-    if (data?.banners?.length > 0) {
-      setBanners(data?.banners);
+    if (data?.image) {
+      setImage(data?.image);
     }
     if (data?.heading) {
-      setValue("hero_section.heading", data?.heading);
+      setValue("boost_creativity.heading", data?.heading);
     }
     if (data?.sub_heading) {
-      setValue("hero_section.sub_heading", data?.sub_heading);
+      setValue("boost_creativity.sub_heading", data?.sub_heading);
     }
     if (data?.heading_summary) {
-      setValue("hero_section.heading_summary", data?.heading_summary);
+      setValue("boost_creativity.heading_summary", data?.heading_summary);
     }
     if (data?.button_title) {
-      setValue("hero_section.button_title", data?.button_title);
+      setValue("boost_creativity.button_title", data?.button_title);
     }
   }, [data]);
-  // console.log(banners);
+
   return (
     <div className="max-w-[1000px] mx-auto">
       <Accordion
-        open={open === 1}
-        icon={<Icon id={1} open={open} />}
+        open={open === 3}
+        icon={<Icon id={3} open={open} />}
         animate={HOME_SECTION_ANIMATION}
       >
         <AccordionHeader
-          onClick={() => handleOpen(1)}
-          style={{ backgroundColor: open === 1 && colors.primary_color }}
+          onClick={() => handleOpen(3)}
+          style={{ backgroundColor: open === 3 && colors.primary_color }}
           className={``}
         >
           <h1
             className={`text-xl font-bold uppercase leading-[26px] block duration-150 ease-in-out ${
-              open === 1 && "translate-x-4"
+              open === 3 && "translate-x-4"
             }`}
           >
-            Hero Section
+            Boost Creativity
           </h1>
         </AccordionHeader>
         <AccordionBody>
@@ -118,49 +106,37 @@ const HSection1 = ({ open, handleOpen, data }) => {
                 className="text-xs sm:text-sm md:text-base font-semibold leading-[26px] block"
                 htmlFor=""
               >
-                Banners
+                image
               </label>
-              {banners?.length > 0 && (
-                <div className="flex flex-wrap items-start gap-4 mb-4">
-                  {banners?.map((img, index) => (
-                    <div
-                      key={index}
-                      className="size-[150px] relative bg-gray-200"
-                    >
-                      <img
-                        src={viewImg(img)}
-                        className="object-contain h-full w-full"
-                        alt=""
-                      />
-                      <div
-                        onClick={() => removeImage(index)}
-                        className="absolute -top-2 -right-2 z-40 rounded-full bg-red-600 text-white p-1 w-8 h-8 cursor-pointer flex justify-center items-center"
-                      >
-                        {trash}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
+
               <Button
-                onClick={() => bannerRef.current.click()}
-                className={`w-full h-[180px] rounded shadow-none border-2 hover:shadow-none bg-primary_gw flex flex-col justify-center gap-4 items-center`}
+                onClick={() => imageRef.current.click()}
+                className={`w-full h-[250px] rounded shadow-none border-2 hover:shadow-none bg-primary_gw flex flex-col justify-center gap-4 items-center`}
               >
-                <>
-                  <div
-                    className="max-w-[70px]"
-                    style={{ color: colors.primary_color }}
-                  >
-                    {iUpload}
-                  </div>
-                  <h1 className="text-gray-500 text-sm font-normal !normal-case text-current">
-                    Upload Banners Image <span>(.png, .jpg, jpeg)</span>
-                  </h1>
-                </>
+                {image ? (
+                  <img
+                    className="w-full h-full object-contain"
+                    src={viewImg(image)}
+                    alt=""
+                  />
+                ) : (
+                  <>
+                    <div
+                      className="max-w-[100px]"
+                      style={{ color: colors.primary_color }}
+                    >
+                      {iUpload}
+                    </div>
+                    <h1 className="text-gray-500 text-sm font-normal !normal-case text-current">
+                      Upload Logo Image <span>(.png, .jpg, jpeg)</span>
+                    </h1>
+                  </>
+                )}
                 <input
-                  ref={bannerRef}
-                  onChange={(e) => setBanners([...banners, ...e.target.files])}
+                  ref={imageRef}
+                  onChange={(e) => setImage(e.target.files[0])}
                   type="file"
+                  multiple={false}
                   accept=".png, .jpg, .jpeg"
                   className="opacity-0 hidden"
                 />
@@ -175,7 +151,7 @@ const HSection1 = ({ open, handleOpen, data }) => {
                 Heading
               </label>
               <input
-                {...register("hero_section.heading", { required: true })}
+                {...register("boost_creativity.heading", { required: true })}
                 type="text"
                 required
                 placeholder="Enter Heading"
@@ -190,7 +166,9 @@ const HSection1 = ({ open, handleOpen, data }) => {
                 Sub Heading
               </label>
               <input
-                {...register("hero_section.sub_heading", { required: true })}
+                {...register("boost_creativity.sub_heading", {
+                  required: true,
+                })}
                 type="text"
                 required
                 placeholder="Enter Sub Heading"
@@ -206,7 +184,7 @@ const HSection1 = ({ open, handleOpen, data }) => {
                 Heading Summary
               </label>
               <textarea
-                {...register("hero_section.heading_summary", {
+                {...register("boost_creativity.heading_summary", {
                   required: true,
                 })}
                 placeholder="Enter Heading Summary"
@@ -221,10 +199,12 @@ const HSection1 = ({ open, handleOpen, data }) => {
                 Button Text
               </label>
               <input
-                {...register("hero_section.button_title", { required: true })}
+                {...register("boost_creativity.button_title", {
+                  required: true,
+                })}
                 type="text"
                 required
-                placeholder="Enter Sub Heading"
+                placeholder="Enter Title"
                 className="w-full h-[42px] outline-none border border-black px-2 rounded text-sm"
               />
             </div>
@@ -254,4 +234,4 @@ const HSection1 = ({ open, handleOpen, data }) => {
   );
 };
 
-export default HSection1;
+export default HSection3;

@@ -7,8 +7,13 @@ import React, { useState } from "react";
 const HSection1 = dynamic(() => import("@/components/Homes/HSection1"), {
   ssr: false,
 });
-
 const HSection2 = dynamic(() => import("@/components/Homes/HSection2"), {
+  ssr: false,
+});
+const HSection3 = dynamic(() => import("@/components/Homes/HSection3"), {
+  ssr: false,
+});
+const HSection4 = dynamic(() => import("@/components/Homes/HSection4"), {
   ssr: false,
 });
 
@@ -38,7 +43,21 @@ const HomePage = () => {
           handleOpen={handleOpen}
           data={data?.data?.hero_section}
         />
-        {/* <HSection2 /> */}
+        <HSection2
+          open={open}
+          handleOpen={handleOpen}
+          data={data?.data?.professional_it_services}
+        />
+        <HSection3
+          open={open}
+          handleOpen={handleOpen}
+          data={data?.data?.boost_creativity}
+        />
+        <HSection4
+          open={open}
+          handleOpen={handleOpen}
+          data={data?.data?.stand_out}
+        />
       </div>
     </>
   );
