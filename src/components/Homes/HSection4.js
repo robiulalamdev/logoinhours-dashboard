@@ -52,7 +52,6 @@ const HSection4 = ({ open, handleOpen, data }) => {
   const handleSave = async (data) => {
     const newData = data;
     const formData = new FormData();
-    console.log(newData);
 
     if (image1) {
       formData.append(`stand_out_card_1_icon`, image1);

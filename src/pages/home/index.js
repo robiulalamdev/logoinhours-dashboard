@@ -16,6 +16,9 @@ const HSection3 = dynamic(() => import("@/components/Homes/HSection3"), {
 const HSection4 = dynamic(() => import("@/components/Homes/HSection4"), {
   ssr: false,
 });
+const HSection5 = dynamic(() => import("@/components/Homes/HSection5"), {
+  ssr: false,
+});
 
 const HomePage = () => {
   const { data } = useGetHomeQuery();
@@ -57,6 +60,11 @@ const HomePage = () => {
           open={open}
           handleOpen={handleOpen}
           data={data?.data?.stand_out}
+        />
+        <HSection5
+          open={open}
+          handleOpen={handleOpen}
+          data={data?.data?.companies}
         />
       </div>
     </>
