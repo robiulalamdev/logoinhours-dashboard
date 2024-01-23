@@ -2,7 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isOpen: false,
-  colors: { primary_color: "#F78C21", background_color: "#ffff" },
+  colors: {
+    primary_color: "#F78C21",
+    background_color: "#ffff",
+    secondary_color: "#000000",
+  },
   logo: null,
   pagesTab: 1,
 };

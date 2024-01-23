@@ -19,6 +19,27 @@ const HSection4 = dynamic(() => import("@/components/Homes/HSection4"), {
 const HSection5 = dynamic(() => import("@/components/Homes/HSection5"), {
   ssr: false,
 });
+const HSection6 = dynamic(() => import("@/components/Homes/HSection6"), {
+  ssr: false,
+});
+const HSection7 = dynamic(() => import("@/components/Homes/HSection7"), {
+  ssr: false,
+});
+const HSection8 = dynamic(() => import("@/components/Homes/HSection8"), {
+  ssr: false,
+});
+const HSection9 = dynamic(() => import("@/components/Homes/HSection9"), {
+  ssr: false,
+});
+const HSection10 = dynamic(() => import("@/components/Homes/HSection10"), {
+  ssr: false,
+});
+const HSection11 = dynamic(() => import("@/components/Homes/HSection11"), {
+  ssr: false,
+});
+const HSection12 = dynamic(() => import("@/components/Homes/HSection12"), {
+  ssr: false,
+});
 
 const HomePage = () => {
   const { data } = useGetHomeQuery();
@@ -65,6 +86,41 @@ const HomePage = () => {
           open={open}
           handleOpen={handleOpen}
           data={data?.data?.companies}
+        />
+        <HSection6
+          open={open}
+          handleOpen={handleOpen}
+          data={data?.data?.appointment}
+        />
+        <HSection7
+          open={open}
+          handleOpen={handleOpen}
+          data={data?.data?.it_solutions}
+        />
+        <HSection8
+          open={open}
+          handleOpen={handleOpen}
+          data={data?.data?.about_our_work}
+        />
+        <HSection9
+          open={open}
+          handleOpen={handleOpen}
+          data={data?.data?.complete_projects}
+        />
+        <HSection10
+          open={open}
+          handleOpen={handleOpen}
+          data={data?.data?.work_process}
+        />
+        <HSection11
+          open={open}
+          handleOpen={handleOpen}
+          data={data?.data?.about_company}
+        />
+        <HSection12
+          open={open}
+          handleOpen={handleOpen}
+          data={data?.data?.client_reviews}
         />
       </div>
     </>
