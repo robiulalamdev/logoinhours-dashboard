@@ -4,7 +4,7 @@ import { Button } from "@material-tailwind/react";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-const PagesTab = () => {
+const CategoryTab = () => {
   const { pagesTab, colors } = useSelector((state) => state.global);
   const dispatch = useDispatch();
   return (
@@ -28,4 +28,4 @@ const PagesTab = () => {
   );
 };
 
-export default PagesTab;
+export default CategoryTab;

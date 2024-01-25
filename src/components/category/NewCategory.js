@@ -1,12 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 import { iUpload } from "@/lib/icons/icons";
+import { useCreateCategoryMutation } from "@/redux/features/category/categoryApi";
 import { Button } from "@material-tailwind/react";
 import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
+import { toast } from "sonner";
 import { SpinnerCircular, SpinnerCircularFixed } from "spinners-react";
 
-const NewPage = () => {
+const NewCategory = () => {
+  const [createCategory, { isLoading }] = useCreateCategoryMutation();
   const { colors } = useSelector((state) => state.global);
   const [imgFile, setImgFile] = useState(null);
   const imgRef = useRef();
@@ -18,17 +21,39 @@ const NewPage = () => {
     setFocus,
     watch,
     control,
+    reset,
     formState: { errors },
   } = useForm();
 
   const handleSave = async (data) => {
-    console.log(data);
+    const formData = new FormData();
+
+    if (imgFile) {
+      formData.append("image", imgFile);
+    }
+    if (data?.name) {
+      formData.append("name", data?.name);
+    }
+    if (data?.description) {
+      formData.append("description", data?.description);
+    }
+    const options = {
+      data: formData,
+    };
+    const result = await createCategory(options);
+    if (result?.data?.success) {
+      reset();
+      toast.success("Category Create Success");
+      setImgFile(null);
+    } else {
+      toast.error("Category Create Failed");
+    }
   };
   return (
     <div>
       <form
-        onSubmit={() => handleSubmit(handleSave)}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-start gap-8 mt-[120px]"
+        onSubmit={handleSubmit(handleSave)}
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-start gap-8 "
       >
         <div className="grid md:grid-cols-2 gap-8 col-span-4">
           <div className="">
@@ -36,7 +61,7 @@ const NewPage = () => {
               className="text-xs sm:text-sm md:text-base font-bold uppercase leading-[26px] block"
               htmlFor=""
             >
-              Thumbnail
+              Image
             </label>
             <Button
               type="button"
@@ -80,8 +105,8 @@ const NewPage = () => {
               Description
             </label>
             <textarea
-              {...register("description", { required: false })}
-              placeholder="Enter Page Name"
+              {...register("description", { required: true })}
+              placeholder="Enter Description"
               className="w-full h-[250px] outline-none border border-black px-3 py-3 rounded text-sm resize-none"
             ></textarea>
           </div>
@@ -104,16 +129,19 @@ const NewPage = () => {
         <div className="col-span-4">
           <Button
             type="submit"
+            disabled={isLoading}
             className="flex justify-center items-center gap-2 max-w-[180px] w-full h-[48px] shadow-none hover:shadow-none rounded-sm"
             style={{ backgroundColor: colors.primary_color }}
           >
-            <SpinnerCircularFixed
-              size={30}
-              thickness={150}
-              speed={450}
-              color="white"
-              secondaryColor="gray"
-            />
+            {isLoading && (
+              <SpinnerCircularFixed
+                size={30}
+                thickness={150}
+                speed={450}
+                color="white"
+                secondaryColor="gray"
+              />
+            )}
             Submit
           </Button>
         </div>
@@ -122,4 +150,4 @@ const NewPage = () => {
   );
 };
 
-export default NewPage;
+export default NewCategory;

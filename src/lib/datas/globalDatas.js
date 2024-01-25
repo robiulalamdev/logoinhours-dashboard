@@ -1,5 +1,6 @@
 import {
   iAbout,
+  iCategory,
   iContact,
   iFaq,
   iFooter,
@@ -11,8 +12,9 @@ import {
 
 export const sidebar_routes = [
   { id: 1, name: "Home", url: "/home", icon: iHome },
-  { id: 2, name: "Footer", url: "footer", icon: iFooter },
-  { id: 3, name: "Pages", url: "pages", icon: iPages },
+  { id: 2, name: "Category", url: "/categories", icon: iCategory },
+  // { id: 2, name: "Footer", url: "footer", icon: iFooter },
+  // { id: 3, name: "Pages", url: "pages", icon: iPages },
   { id: 4, name: "About Us", url: "about-us", icon: iAbout },
   { id: 5, name: "Contact Us", url: "contact-us", icon: iContact },
   { id: 6, name: "Reviews", url: "reviews", icon: iReviews },
@@ -20,8 +22,13 @@ export const sidebar_routes = [
 ];
 
 export const pagesTabs = [
-  { id: 1, name: "Pages" },
-  { id: 2, name: "New Page" },
+  { id: 1, name: "Categories" },
+  { id: 2, name: "New Category" },
+];
+
+export const reviewTabs = [
+  { id: 1, name: "Reviews" },
+  { id: 2, name: "Add Review" },
 ];
 
 export const editor = {
