@@ -1,40 +1,36 @@
 /* eslint-disable @next/next/no-img-element */
-import useViewImage from "@/lib/hooks/useViewImage";
 import { trash } from "@/lib/icons/icons";
-import { useDeleteCategoryMutation } from "@/redux/features/category/categoryApi";
-import { Button, Card, CardBody, CardHeader } from "@material-tailwind/react";
+import { useDeleteSpMutation } from "@/redux/features/subPage/subPageApi";
 import moment from "moment";
 import Link from "next/link";
 import React from "react";
-import { useSelector } from "react-redux";
 import { toast } from "sonner";
 
-const CategoryCard = ({ data }) => {
-  const { viewImg } = useViewImage();
-  const [deleteCategory, { isLoading }] = useDeleteCategoryMutation();
+const SubPageCard = ({ data }) => {
+  const [deleteSp, { isLoading }] = useDeleteSpMutation();
 
   const handleDelete = async () => {
     const options = {
       id: data?._id,
       data: {},
     };
-    const result = await deleteCategory(options);
+    const result = await deleteSp(options);
     console.log(result);
     if (result?.data?.success) {
-      toast.success("Category Remove Success");
+      toast.success("Sub Page Remove Success");
     } else {
-      toast.error("Category Remove Failed");
+      toast.error("Sub Page Remove Failed");
     }
   };
 
   return (
-    <div className="grid h-full w-full max-h-[200px] max-w-[28rem] items-end justify-center text-center border relative bg-gray-50">
+    <div className="grid w-full h-[150px] max-w-[28rem] items-end justify-center text-center border relative bg-gray-50">
       <div className="w-full h-full flex flex-col justify-center items-center gap-4 p-3 ">
-        <img src={viewImg(data?.image)} alt="" />
-        <h1 className="text-black font-bold text-[18px] text-wrap">
-          {data?.name}
-        </h1>
-
+        <Link href={`/sub-pages/${data?._id}`}>
+          <h1 className="text-black hover:text-orange-600 font-bold text-[18px] text-wrap">
+            {data?.name}
+          </h1>
+        </Link>
         <small className="text-gray-800 uppercase text-xs">
           {moment(data?.createdAt).format("MMM DD YYYY")}
         </small>
@@ -49,4 +45,4 @@ const CategoryCard = ({ data }) => {
   );
 };
 
-export default CategoryCard;
+export default SubPageCard;
