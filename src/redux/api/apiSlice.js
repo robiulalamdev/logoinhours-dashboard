@@ -13,6 +13,6 @@ export const api = createApi({
     //   return headers;
     // },
   }),
-  tagTypes: ["landing", "global", "categories", "reviews"],
+  tagTypes: ["landing", "pages", "sp", "global", "categories", "reviews"],
   endpoints: () => ({}),
 });

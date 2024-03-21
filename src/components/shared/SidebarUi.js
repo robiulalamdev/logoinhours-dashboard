@@ -15,7 +15,10 @@ const SidebarUi = () => {
   const dispatch = useDispatch();
   const { pathname } = useRouter();
   return (
-    <div className="max-w-[300px] min-w-[300px] w-full bg-blue-900 h-full px-4 relative">
+    <div
+      draggable
+      className="max-w-[300px] min-w-[300px] w-full bg-blue-900 h-full px-4 relative"
+    >
       <div className="flex items-center justify-center h-[150px] w-full">
         <Link href="/">
           <Image className="w-[150px]" src={logo} alt="" />

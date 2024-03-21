@@ -12,12 +12,11 @@ import {
 
 export const sidebar_routes = [
   { id: 1, name: "Home", url: "home", icon: iHome },
-  { id: 2, name: "Sub Page", url: "sub-pages", icon: iPages },
+  { id: 2, name: "Pages", url: "pages", icon: iPages },
   { id: 3, name: "Category", url: "categories", icon: iCategory },
-  { id: 4, name: "About Us", url: "about-us", icon: iAbout },
-  { id: 5, name: "Contact Us", url: "contact-us", icon: iContact },
-  { id: 6, name: "Reviews", url: "reviews", icon: iReviews },
-  { id: 7, name: "FAQ", url: "faqs", icon: iFaq },
+  // { id: 4, name: "Contact Us", url: "contact-us", icon: iContact },
+  { id: 5, name: "Reviews", url: "reviews", icon: iReviews },
+  // { id: 6, name: "FAQ", url: "faqs", icon: iFaq },
 ];
 
 export const pagesTabs = [

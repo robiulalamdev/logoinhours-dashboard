@@ -8,17 +8,16 @@ import { useSpInitializeMutation } from "@/redux/features/subPage/subPageApi";
 import { toast } from "sonner";
 import { SpinnerCircularFixed } from "spinners-react";
 
-const AllSubPages = ({ pages, isLoading }) => {
+const AllSubPages = ({ selectedPage, subPages, isLoading }) => {
   const [spInitialize, { isLoading: initLoading }] = useSpInitializeMutation();
   const { handleSubmit, register, reset } = useForm();
   const { colors } = useSelector((state) => state.global);
 
   const handleCreate = async (data) => {
     const options = {
-      data: data,
+      data: { name: data?.name, page: selectedPage?._id },
     };
     const result = await spInitialize(options);
-    console.log(result);
     if (result?.data?.success) {
       reset();
       toast.success("Sub Page Create Success");
@@ -30,7 +29,7 @@ const AllSubPages = ({ pages, isLoading }) => {
     <div className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
       <form
         onSubmit={handleSubmit(handleCreate)}
-        className="col-span-2 h-full w-full max-h-[200px] items-end justify-center text-center px-2 py-3 border relative bg-gray-100"
+        className="h-full w-full max-h-[200px] items-end justify-center text-center px-2 py-3 border relative bg-gray-100"
       >
         <div className="w-full h-full">
           <div>
@@ -61,8 +60,8 @@ const AllSubPages = ({ pages, isLoading }) => {
         </div>
       </form>
       {!isLoading &&
-        pages?.length > 0 &&
-        pages?.map((item, index) => <SubPageCard key={index} data={item} />)}
+        subPages?.length > 0 &&
+        subPages?.map((item, index) => <SubPageCard key={index} data={item} />)}
     </div>
   );
 };

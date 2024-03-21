@@ -38,6 +38,20 @@ const subPageApi = api.injectEndpoints({
       query: () => `/sp`,
       providesTags: ["sp"],
     }),
+
+    getSubPagesByPageId: builder.query({
+      query: (pageId) => `/sp/sub-pages/${pageId}`,
+      providesTags: ["sp"],
+    }),
+
+    updateSubPage: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/sp/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["sp"],
+    }),
   }),
 });
 
@@ -47,4 +61,6 @@ export const {
   useDeleteSpMutation,
   useGetSpQuery,
   useGetAllSpQuery,
+  useGetSubPagesByPageIdQuery,
+  useUpdateSubPageMutation,
 } = subPageApi;

@@ -30,7 +30,6 @@ const SubPageDetails = () => {
     console.log(query.id);
   }, [query.id]);
 
-  console.log(data);
   return (
     <div className="mt-[40px] h-full max-h-screen">
       {isLoading ? (
@@ -42,12 +41,12 @@ const SubPageDetails = () => {
           {data?.data ? (
             <>
               <div className="mt-[40px] h-full max-h-screen overflow-y-auto">
-                <SPSection1
+                {/* <SPSection1
                   open={open}
                   handleOpen={handleOpen}
                   data={data?.data?.hero_section}
                   id={data?.data?._id}
-                />
+                /> */}
                 <SPSection2
                   open={open}
                   handleOpen={handleOpen}
@@ -72,12 +71,12 @@ const SubPageDetails = () => {
                   data={data?.data?.companies}
                   id={data?.data?._id}
                 />
-                <SPSection6
+                {/* <SPSection6
                   open={open}
                   handleOpen={handleOpen}
                   data={data?.data?.appointment}
                   id={data?.data?._id}
-                />
+                /> */}
                 <SPSection7
                   open={open}
                   handleOpen={handleOpen}
@@ -90,12 +89,12 @@ const SubPageDetails = () => {
                   data={data?.data?.about_our_work}
                   id={data?.data?._id}
                 />
-                <SPSection9
+                {/* <SPSection9
                   open={open}
                   handleOpen={handleOpen}
                   data={data?.data?.complete_projects}
                   id={data?.data?._id}
-                />
+                /> */}
                 <SPSection10
                   open={open}
                   handleOpen={handleOpen}
@@ -108,12 +107,12 @@ const SubPageDetails = () => {
                   data={data?.data?.about_company}
                   id={data?.data?._id}
                 />
-                <SPSection12
+                {/* <SPSection12
                   open={open}
                   handleOpen={handleOpen}
                   data={data?.data?.client_reviews}
                   id={data?.data?._id}
-                />
+                /> */}
               </div>
             </>
           ) : (
