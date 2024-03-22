@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import StatusSwitch from "@/components/commons/StatusSwitch";
 import { HOME_SECTION_ANIMATION } from "@/lib/constants/globalConstant";
 import useViewImage from "@/lib/hooks/useViewImage";
 import { iUpload, trash } from "@/lib/icons/icons";
@@ -16,7 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
 import { SpinnerCircularFixed } from "spinners-react";
 
-const SPSection3 = ({ open, handleOpen, data, id }) => {
+const SPSection3 = ({ open, handleOpen, data, id, handleUpdate }) => {
   const { colors } = useSelector((state) => state.global);
   const { viewImg } = useViewImage();
   const [toggleSp, { isLoading }] = useToggleSpMutation();
@@ -88,6 +89,12 @@ const SPSection3 = ({ open, handleOpen, data, id }) => {
           </h1>
         </AccordionHeader>
         <AccordionBody>
+          <StatusSwitch
+            action={(value) =>
+              handleUpdate(id, { "boost_creativity.status": value })
+            }
+            value={data?.status}
+          />
           <form onSubmit={handleSubmit(handleSave)} className="w-full">
             <div className="col-span-4">
               <label
@@ -141,7 +148,6 @@ const SPSection3 = ({ open, handleOpen, data, id }) => {
               <input
                 {...register("boost_creativity.heading", { required: true })}
                 type="text"
-                required
                 placeholder="Enter Heading"
                 className="w-full h-[42px] outline-none border border-black px-2 rounded text-sm"
               />
@@ -155,10 +161,9 @@ const SPSection3 = ({ open, handleOpen, data, id }) => {
               </label>
               <input
                 {...register("boost_creativity.sub_heading", {
-                  required: true,
+                  required: false,
                 })}
                 type="text"
-                required
                 placeholder="Enter Sub Heading"
                 className="w-full h-[42px] outline-none border border-black px-2 rounded text-sm"
               />
@@ -173,7 +178,7 @@ const SPSection3 = ({ open, handleOpen, data, id }) => {
               </label>
               <textarea
                 {...register("boost_creativity.heading_summary", {
-                  required: true,
+                  required: false,
                 })}
                 placeholder="Enter Heading Summary"
                 className="w-full max-h-[180px] outline-none border border-black px-3 py-3 rounded text-sm resize-none"
@@ -188,10 +193,9 @@ const SPSection3 = ({ open, handleOpen, data, id }) => {
               </label>
               <input
                 {...register("boost_creativity.button_title", {
-                  required: true,
+                  required: false,
                 })}
                 type="text"
-                required
                 placeholder="Enter Title"
                 className="w-full h-[42px] outline-none border border-black px-2 rounded text-sm"
               />

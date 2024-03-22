@@ -1,8 +1,12 @@
 import { metas } from "@/lib/metas/metas";
-import { useGetHomeQuery } from "@/redux/features/home/homeApi";
+import {
+  useGetHomeQuery,
+  useUpdateLandingSectionStatusMutation,
+} from "@/redux/features/home/homeApi";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import React, { useState } from "react";
+import { toast } from "sonner";
 
 const HSection1 = dynamic(() => import("@/components/Homes/HSection1"), {
   ssr: false,
@@ -43,6 +47,7 @@ const HSection12 = dynamic(() => import("@/components/Homes/HSection12"), {
 
 const HomePage = () => {
   const { data } = useGetHomeQuery();
+  const [updateLandingSectionStatus] = useUpdateLandingSectionStatusMutation();
   const [open, setOpen] = useState(0);
 
   const handleOpen = (input) => {
@@ -53,7 +58,19 @@ const HomePage = () => {
     }
   };
 
-  console.log(data);
+  const handleUpdate = async (updateData) => {
+    const options = {
+      id: data?.data?._id,
+      data: updateData,
+    };
+    const result = await updateLandingSectionStatus(options);
+    if (result?.data?.success) {
+      toast.success("Status Update Success");
+    } else {
+      toast.error("Status Update Failed");
+    }
+  };
+
   return (
     <>
       <Head>
@@ -66,61 +83,73 @@ const HomePage = () => {
           open={open}
           handleOpen={handleOpen}
           data={data?.data?.hero_section}
+          handleUpdate={handleUpdate}
         />
         <HSection2
           open={open}
           handleOpen={handleOpen}
           data={data?.data?.professional_it_services}
+          handleUpdate={handleUpdate}
         />
         <HSection3
           open={open}
           handleOpen={handleOpen}
           data={data?.data?.boost_creativity}
+          handleUpdate={handleUpdate}
         />
         <HSection4
           open={open}
           handleOpen={handleOpen}
           data={data?.data?.stand_out}
+          handleUpdate={handleUpdate}
         />
         <HSection5
           open={open}
           handleOpen={handleOpen}
           data={data?.data?.companies}
+          handleUpdate={handleUpdate}
         />
         <HSection6
           open={open}
           handleOpen={handleOpen}
           data={data?.data?.appointment}
+          handleUpdate={handleUpdate}
         />
         <HSection7
           open={open}
           handleOpen={handleOpen}
           data={data?.data?.it_solutions}
+          handleUpdate={handleUpdate}
         />
         <HSection8
           open={open}
           handleOpen={handleOpen}
           data={data?.data?.about_our_work}
+          handleUpdate={handleUpdate}
         />
         <HSection9
           open={open}
           handleOpen={handleOpen}
           data={data?.data?.complete_projects}
+          handleUpdate={handleUpdate}
         />
         <HSection10
           open={open}
           handleOpen={handleOpen}
           data={data?.data?.work_process}
+          handleUpdate={handleUpdate}
         />
         <HSection11
           open={open}
           handleOpen={handleOpen}
           data={data?.data?.about_company}
+          handleUpdate={handleUpdate}
         />
         <HSection12
           open={open}
           handleOpen={handleOpen}
           data={data?.data?.client_reviews}
+          handleUpdate={handleUpdate}
         />
       </div>
     </>

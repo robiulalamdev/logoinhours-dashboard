@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import StatusSwitch from "@/components/commons/StatusSwitch";
 import { HOME_SECTION_ANIMATION } from "@/lib/constants/globalConstant";
 import useViewImage from "@/lib/hooks/useViewImage";
 import { iUpload } from "@/lib/icons/icons";
@@ -17,7 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
 import { SpinnerCircularFixed } from "spinners-react";
 
-const SPSection4 = ({ open, handleOpen, data, id }) => {
+const SPSection4 = ({ open, handleOpen, data, id, handleUpdate }) => {
   const { colors } = useSelector((state) => state.global);
   const dispatch = useDispatch();
   const { viewImg } = useViewImage();
@@ -149,6 +150,10 @@ const SPSection4 = ({ open, handleOpen, data, id }) => {
           </h1>
         </AccordionHeader>
         <AccordionBody>
+          <StatusSwitch
+            action={(value) => handleUpdate(id, { "stand_out.status": value })}
+            value={data?.status}
+          />
           <form onSubmit={handleSubmit(handleSave)} className="w-full">
             <div className="grid md:grid-cols-2 gap-4">
               <div className="">
@@ -194,7 +199,6 @@ const SPSection4 = ({ open, handleOpen, data, id }) => {
                 <input
                   {...register("stand_out.card_1.title", { required: true })}
                   type="text"
-                  required
                   placeholder="Enter title"
                   className="w-full h-[42px] outline-none border border-black px-2 rounded text-sm mt-2"
                 />
@@ -242,7 +246,6 @@ const SPSection4 = ({ open, handleOpen, data, id }) => {
                 <input
                   {...register("stand_out.card_2.title", { required: true })}
                   type="text"
-                  required
                   placeholder="Enter title"
                   className="w-full h-[42px] outline-none border border-black px-2 rounded text-sm mt-2"
                 />
@@ -290,7 +293,6 @@ const SPSection4 = ({ open, handleOpen, data, id }) => {
                 <input
                   {...register("stand_out.card_3.title", { required: true })}
                   type="text"
-                  required
                   placeholder="Enter title"
                   className="w-full h-[42px] outline-none border border-black px-2 rounded text-sm mt-2"
                 />
@@ -338,7 +340,6 @@ const SPSection4 = ({ open, handleOpen, data, id }) => {
                 <input
                   {...register("stand_out.card_4.title", { required: true })}
                   type="text"
-                  required
                   placeholder="Enter title"
                   className="w-full h-[42px] outline-none border border-black px-2 rounded text-sm mt-2"
                 />
@@ -355,7 +356,6 @@ const SPSection4 = ({ open, handleOpen, data, id }) => {
               <input
                 {...register("stand_out.heading", { required: true })}
                 type="text"
-                required
                 placeholder="Enter Heading"
                 className="w-full h-[42px] outline-none border border-black px-2 rounded text-sm"
               />
@@ -369,10 +369,9 @@ const SPSection4 = ({ open, handleOpen, data, id }) => {
               </label>
               <input
                 {...register("stand_out.sub_heading", {
-                  required: true,
+                  required: false,
                 })}
                 type="text"
-                required
                 placeholder="Enter Sub Heading"
                 className="w-full h-[42px] outline-none border border-black px-2 rounded text-sm"
               />
@@ -387,7 +386,7 @@ const SPSection4 = ({ open, handleOpen, data, id }) => {
               </label>
               <textarea
                 {...register("stand_out.heading_summary", {
-                  required: true,
+                  required: false,
                 })}
                 placeholder="Enter Heading Summary"
                 className="w-full max-h-[180px] outline-none border border-black px-3 py-3 rounded text-sm resize-none"
@@ -495,10 +494,9 @@ const SPSection4 = ({ open, handleOpen, data, id }) => {
               </label>
               <input
                 {...register("stand_out.button_title", {
-                  required: true,
+                  required: false,
                 })}
                 type="text"
-                required
                 placeholder="Enter Sub Heading"
                 className="w-full h-[42px] outline-none border border-black px-2 rounded text-sm"
               />

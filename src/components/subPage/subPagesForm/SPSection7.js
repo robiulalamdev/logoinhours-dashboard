@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import StatusSwitch from "@/components/commons/StatusSwitch";
 import { HOME_SECTION_ANIMATION } from "@/lib/constants/globalConstant";
 import { editor } from "@/lib/datas/globalDatas";
 import useViewImage from "@/lib/hooks/useViewImage";
@@ -18,7 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
 import { SpinnerCircularFixed } from "spinners-react";
 
-const SPSection7 = ({ open, handleOpen, data, id }) => {
+const SPSection7 = ({ open, handleOpen, data, id, handleUpdate }) => {
   const { colors } = useSelector((state) => state.global);
   const dispatch = useDispatch();
   const { viewImg } = useViewImage();
@@ -152,6 +153,12 @@ const SPSection7 = ({ open, handleOpen, data, id }) => {
           </h1>
         </AccordionHeader>
         <AccordionBody>
+          <StatusSwitch
+            action={(value) =>
+              handleUpdate(id, { "it_solutions.status": value })
+            }
+            value={data?.status}
+          />
           <form onSubmit={handleSubmit(handleSave)} className="w-full">
             <div className="grid md:grid-cols-2 gap-4">
               <div className="">
@@ -196,10 +203,9 @@ const SPSection7 = ({ open, handleOpen, data, id }) => {
                 </Button>
                 <input
                   {...register("it_solutions.solution_1.title", {
-                    required: true,
+                    required: false,
                   })}
                   type="text"
-                  required
                   placeholder="Enter title"
                   className="w-full h-[42px] outline-none border border-black px-2 rounded text-sm mt-2"
                 />
@@ -212,7 +218,7 @@ const SPSection7 = ({ open, handleOpen, data, id }) => {
                   </label>
                   <textarea
                     {...register("it_solutions.solution_1.summary", {
-                      required: true,
+                      required: false,
                     })}
                     placeholder="Enter Heading Summary"
                     className="w-full max-h-[180px] outline-none border border-black px-3 py-3 rounded text-sm resize-none"
@@ -261,10 +267,9 @@ const SPSection7 = ({ open, handleOpen, data, id }) => {
                 </Button>
                 <input
                   {...register("it_solutions.solution_2.title", {
-                    required: true,
+                    required: false,
                   })}
                   type="text"
-                  required
                   placeholder="Enter title"
                   className="w-full h-[42px] outline-none border border-black px-2 rounded text-sm mt-2"
                 />
@@ -277,7 +282,7 @@ const SPSection7 = ({ open, handleOpen, data, id }) => {
                   </label>
                   <textarea
                     {...register("it_solutions.solution_2.summary", {
-                      required: true,
+                      required: false,
                     })}
                     placeholder="Enter Heading Summary"
                     className="w-full max-h-[180px] outline-none border border-black px-3 py-3 rounded text-sm resize-none"
@@ -326,10 +331,9 @@ const SPSection7 = ({ open, handleOpen, data, id }) => {
                 </Button>
                 <input
                   {...register("it_solutions.solution_3.title", {
-                    required: true,
+                    required: false,
                   })}
                   type="text"
-                  required
                   placeholder="Enter title"
                   className="w-full h-[42px] outline-none border border-black px-2 rounded text-sm mt-2"
                 />
@@ -342,7 +346,7 @@ const SPSection7 = ({ open, handleOpen, data, id }) => {
                   </label>
                   <textarea
                     {...register("it_solutions.solution_3.summary", {
-                      required: true,
+                      required: false,
                     })}
                     placeholder="Enter Heading Summary"
                     className="w-full max-h-[180px] outline-none border border-black px-3 py-3 rounded text-sm resize-none"
@@ -391,10 +395,9 @@ const SPSection7 = ({ open, handleOpen, data, id }) => {
                 </Button>
                 <input
                   {...register("it_solutions.solution_4.title", {
-                    required: true,
+                    required: false,
                   })}
                   type="text"
-                  required
                   placeholder="Enter title"
                   className="w-full h-[42px] outline-none border border-black px-2 rounded text-sm mt-2"
                 />
@@ -407,7 +410,7 @@ const SPSection7 = ({ open, handleOpen, data, id }) => {
                   </label>
                   <textarea
                     {...register("it_solutions.solution_4.summary", {
-                      required: true,
+                      required: false,
                     })}
                     placeholder="Enter Heading Summary"
                     className="w-full max-h-[180px] outline-none border border-black px-3 py-3 rounded text-sm resize-none"
@@ -426,7 +429,6 @@ const SPSection7 = ({ open, handleOpen, data, id }) => {
               <input
                 {...register("it_solutions.heading", { required: true })}
                 type="text"
-                required
                 placeholder="Enter Heading"
                 className="w-full h-[42px] outline-none border border-black px-2 rounded text-sm"
               />
@@ -440,10 +442,9 @@ const SPSection7 = ({ open, handleOpen, data, id }) => {
               </label>
               <input
                 {...register("it_solutions.sub_heading", {
-                  required: true,
+                  required: false,
                 })}
                 type="text"
-                required
                 placeholder="Enter Sub Heading"
                 className="w-full h-[42px] outline-none border border-black px-2 rounded text-sm"
               />
@@ -458,7 +459,7 @@ const SPSection7 = ({ open, handleOpen, data, id }) => {
               </label>
               <textarea
                 {...register("it_solutions.heading_summary", {
-                  required: true,
+                  required: false,
                 })}
                 placeholder="Enter Heading Summary"
                 className="w-full max-h-[180px] outline-none border border-black px-3 py-3 rounded text-sm resize-none"
@@ -474,10 +475,9 @@ const SPSection7 = ({ open, handleOpen, data, id }) => {
               </label>
               <input
                 {...register("it_solutions.button_title", {
-                  required: true,
+                  required: false,
                 })}
                 type="text"
-                required
                 placeholder="Enter Sub Heading"
                 className="w-full h-[42px] outline-none border border-black px-2 rounded text-sm"
               />

@@ -52,6 +52,15 @@ const subPageApi = api.injectEndpoints({
       }),
       invalidatesTags: ["sp"],
     }),
+
+    updateStatusSubPage: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/sp/status/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["sp"],
+    }),
   }),
 });
 
@@ -63,4 +72,5 @@ export const {
   useGetAllSpQuery,
   useGetSubPagesByPageIdQuery,
   useUpdateSubPageMutation,
+  useUpdateStatusSubPageMutation,
 } = subPageApi;

@@ -15,8 +15,9 @@ import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { toast } from "sonner";
 import { SpinnerCircularFixed } from "spinners-react";
+import StatusSwitch from "../commons/StatusSwitch";
 
-const HSection2 = ({ open, handleOpen, data }) => {
+const HSection2 = ({ open, handleOpen, data, handleUpdate }) => {
   const { colors } = useSelector((state) => state.global);
   const [toggleLanding, { isLoading }] = useToggleLandingMutation();
 
@@ -83,6 +84,12 @@ const HSection2 = ({ open, handleOpen, data }) => {
           </h1>
         </AccordionHeader>
         <AccordionBody>
+          <StatusSwitch
+            action={(value) =>
+              handleUpdate({ "professional_it_services.status": value })
+            }
+            value={data?.status}
+          />
           <form onSubmit={handleSubmit(handleSave)} className="w-full">
             <div className="mt-4">
               <label

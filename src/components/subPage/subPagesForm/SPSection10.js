@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import StatusSwitch from "@/components/commons/StatusSwitch";
 import { HOME_SECTION_ANIMATION } from "@/lib/constants/globalConstant";
 import { editor } from "@/lib/datas/globalDatas";
 import useViewImage from "@/lib/hooks/useViewImage";
@@ -18,7 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
 import { SpinnerCircularFixed } from "spinners-react";
 
-const SPSection10 = ({ open, handleOpen, data, id }) => {
+const SPSection10 = ({ open, handleOpen, data, id, handleUpdate }) => {
   const { colors } = useSelector((state) => state.global);
   const dispatch = useDispatch();
   const { viewImg } = useViewImage();
@@ -148,6 +149,12 @@ const SPSection10 = ({ open, handleOpen, data, id }) => {
           </h1>
         </AccordionHeader>
         <AccordionBody>
+          <StatusSwitch
+            action={(value) =>
+              handleUpdate(id, { "work_process.status": value })
+            }
+            value={data?.status}
+          />
           <form onSubmit={handleSubmit(handleSave)} className="w-full">
             <div className="grid md:grid-cols-2 gap-4">
               <div className="">
@@ -192,10 +199,9 @@ const SPSection10 = ({ open, handleOpen, data, id }) => {
                 </Button>
                 <input
                   {...register("work_process.process_1.title", {
-                    required: true,
+                    required: false,
                   })}
                   type="text"
-                  required
                   placeholder="Enter title"
                   className="w-full h-[42px] outline-none border border-black px-2 rounded text-sm mt-2"
                 />
@@ -208,7 +214,7 @@ const SPSection10 = ({ open, handleOpen, data, id }) => {
                   </label>
                   <textarea
                     {...register("work_process.process_1.summary", {
-                      required: true,
+                      required: false,
                     })}
                     placeholder="Enter Heading Summary"
                     className="w-full max-h-[180px] outline-none border border-black px-3 py-3 rounded text-sm resize-none"
@@ -257,10 +263,9 @@ const SPSection10 = ({ open, handleOpen, data, id }) => {
                 </Button>
                 <input
                   {...register("work_process.process_2.title", {
-                    required: true,
+                    required: false,
                   })}
                   type="text"
-                  required
                   placeholder="Enter title"
                   className="w-full h-[42px] outline-none border border-black px-2 rounded text-sm mt-2"
                 />
@@ -273,7 +278,7 @@ const SPSection10 = ({ open, handleOpen, data, id }) => {
                   </label>
                   <textarea
                     {...register("work_process.process_2.summary", {
-                      required: true,
+                      required: false,
                     })}
                     placeholder="Enter Heading Summary"
                     className="w-full max-h-[180px] outline-none border border-black px-3 py-3 rounded text-sm resize-none"
@@ -322,10 +327,9 @@ const SPSection10 = ({ open, handleOpen, data, id }) => {
                 </Button>
                 <input
                   {...register("work_process.process_3.title", {
-                    required: true,
+                    required: false,
                   })}
                   type="text"
-                  required
                   placeholder="Enter title"
                   className="w-full h-[42px] outline-none border border-black px-2 rounded text-sm mt-2"
                 />
@@ -338,7 +342,7 @@ const SPSection10 = ({ open, handleOpen, data, id }) => {
                   </label>
                   <textarea
                     {...register("work_process.process_3.summary", {
-                      required: true,
+                      required: false,
                     })}
                     placeholder="Enter Heading Summary"
                     className="w-full max-h-[180px] outline-none border border-black px-3 py-3 rounded text-sm resize-none"
@@ -387,7 +391,7 @@ const SPSection10 = ({ open, handleOpen, data, id }) => {
                 </Button>
                 <input
                   {...register("work_process.process_4.title", {
-                    required: true,
+                    required: false,
                   })}
                   type="text"
                   required
@@ -403,7 +407,7 @@ const SPSection10 = ({ open, handleOpen, data, id }) => {
                   </label>
                   <textarea
                     {...register("work_process.process_4.summary", {
-                      required: true,
+                      required: false,
                     })}
                     placeholder="Enter Heading Summary"
                     className="w-full max-h-[180px] outline-none border border-black px-3 py-3 rounded text-sm resize-none"
@@ -436,7 +440,7 @@ const SPSection10 = ({ open, handleOpen, data, id }) => {
               </label>
               <input
                 {...register("work_process.sub_heading", {
-                  required: true,
+                  required: false,
                 })}
                 type="text"
                 required
@@ -454,7 +458,7 @@ const SPSection10 = ({ open, handleOpen, data, id }) => {
               </label>
               <textarea
                 {...register("work_process.heading_summary", {
-                  required: true,
+                  required: false,
                 })}
                 placeholder="Enter Heading Summary"
                 className="w-full max-h-[180px] outline-none border border-black px-3 py-3 rounded text-sm resize-none"

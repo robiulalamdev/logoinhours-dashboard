@@ -19,8 +19,9 @@ import ReactQuill from "react-quill";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
 import { SpinnerCircularFixed } from "spinners-react";
+import StatusSwitch from "../commons/StatusSwitch";
 
-const HSection10 = ({ open, handleOpen, data }) => {
+const HSection10 = ({ open, handleOpen, data, handleUpdate }) => {
   const { colors } = useSelector((state) => state.global);
   const dispatch = useDispatch();
   const { viewImg } = useViewImage();
@@ -149,6 +150,10 @@ const HSection10 = ({ open, handleOpen, data }) => {
           </h1>
         </AccordionHeader>
         <AccordionBody>
+          <StatusSwitch
+            action={(value) => handleUpdate({ "work_process.status": value })}
+            value={data?.status}
+          />
           <form onSubmit={handleSubmit(handleSave)} className="w-full">
             <div className="grid md:grid-cols-2 gap-4">
               <div className="">

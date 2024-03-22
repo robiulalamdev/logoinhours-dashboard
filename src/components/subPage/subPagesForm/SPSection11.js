@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import StatusSwitch from "@/components/commons/StatusSwitch";
 import { HOME_SECTION_ANIMATION } from "@/lib/constants/globalConstant";
 import { Icon } from "@/lib/services/service";
 import { useToggleSpMutation } from "@/redux/features/subPage/subPageApi";
@@ -14,7 +15,7 @@ import { useSelector } from "react-redux";
 import { toast } from "sonner";
 import { SpinnerCircularFixed } from "spinners-react";
 
-const SPSection11 = ({ open, handleOpen, data, id }) => {
+const SPSection11 = ({ open, handleOpen, data, id, handleUpdate }) => {
   const { colors } = useSelector((state) => state.global);
   const [toggleSp, { isLoading }] = useToggleSpMutation();
 
@@ -76,6 +77,12 @@ const SPSection11 = ({ open, handleOpen, data, id }) => {
           </h1>
         </AccordionHeader>
         <AccordionBody>
+          <StatusSwitch
+            action={(value) =>
+              handleUpdate(id, { "about_company.status": value })
+            }
+            value={data?.status}
+          />
           <form onSubmit={handleSubmit(handleSave)} className="w-full">
             <div className="mt-4">
               <label
@@ -86,7 +93,7 @@ const SPSection11 = ({ open, handleOpen, data, id }) => {
               </label>
               <input
                 {...register("about_company.heading", {
-                  required: true,
+                  required: false,
                 })}
                 type="text"
                 required
@@ -103,7 +110,7 @@ const SPSection11 = ({ open, handleOpen, data, id }) => {
               </label>
               <input
                 {...register("about_company.sub_heading", {
-                  required: true,
+                  required: false,
                 })}
                 type="text"
                 required
@@ -121,7 +128,7 @@ const SPSection11 = ({ open, handleOpen, data, id }) => {
               </label>
               <textarea
                 {...register("about_company.heading_summary", {
-                  required: true,
+                  required: false,
                 })}
                 placeholder="Enter Heading Summary"
                 className="w-full max-h-[180px] outline-none border border-black px-3 py-3 rounded text-sm resize-none"

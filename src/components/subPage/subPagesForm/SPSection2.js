@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import StatusSwitch from "@/components/commons/StatusSwitch";
 import { HOME_SECTION_ANIMATION } from "@/lib/constants/globalConstant";
 import { Icon } from "@/lib/services/service";
 import { useToggleSpMutation } from "@/redux/features/subPage/subPageApi";
@@ -7,6 +8,7 @@ import {
   AccordionBody,
   AccordionHeader,
   Button,
+  Switch,
 } from "@material-tailwind/react";
 import React, { useMemo } from "react";
 import { useForm } from "react-hook-form";
@@ -14,7 +16,7 @@ import { useSelector } from "react-redux";
 import { toast } from "sonner";
 import { SpinnerCircularFixed } from "spinners-react";
 
-const SPSection2 = ({ open, handleOpen, data, id }) => {
+const SPSection2 = ({ open, handleOpen, data, id, handleUpdate }) => {
   const { colors } = useSelector((state) => state.global);
   const [toggleSp, { isLoading }] = useToggleSpMutation();
 
@@ -82,6 +84,12 @@ const SPSection2 = ({ open, handleOpen, data, id }) => {
           </h1>
         </AccordionHeader>
         <AccordionBody>
+          <StatusSwitch
+            action={(value) =>
+              handleUpdate(id, { "professional_it_services.status": value })
+            }
+            value={data?.status}
+          />
           <form onSubmit={handleSubmit(handleSave)} className="w-full">
             <div className="mt-4">
               <label
@@ -92,10 +100,9 @@ const SPSection2 = ({ open, handleOpen, data, id }) => {
               </label>
               <input
                 {...register("professional_it_services.heading", {
-                  required: true,
+                  required: false,
                 })}
                 type="text"
-                required
                 placeholder="Enter Heading"
                 className="w-full h-[42px] outline-none border border-black px-2 rounded text-sm"
               />
@@ -109,10 +116,9 @@ const SPSection2 = ({ open, handleOpen, data, id }) => {
               </label>
               <input
                 {...register("professional_it_services.sub_heading", {
-                  required: true,
+                  required: false,
                 })}
                 type="text"
-                required
                 placeholder="Enter Sub Heading"
                 className="w-full h-[42px] outline-none border border-black px-2 rounded text-sm"
               />
@@ -127,7 +133,7 @@ const SPSection2 = ({ open, handleOpen, data, id }) => {
               </label>
               <textarea
                 {...register("professional_it_services.heading_summary", {
-                  required: true,
+                  required: false,
                 })}
                 placeholder="Enter Heading Summary"
                 className="w-full max-h-[180px] outline-none border border-black px-3 py-3 rounded text-sm resize-none"
@@ -142,10 +148,9 @@ const SPSection2 = ({ open, handleOpen, data, id }) => {
               </label>
               <input
                 {...register("professional_it_services.button_title", {
-                  required: true,
+                  required: false,
                 })}
                 type="text"
-                required
                 placeholder="Enter Title"
                 className="w-full h-[42px] outline-none border border-black px-2 rounded text-sm"
               />

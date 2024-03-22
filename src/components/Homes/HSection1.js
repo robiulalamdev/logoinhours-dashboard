@@ -18,8 +18,9 @@ import ReactQuill from "react-quill";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
 import { SpinnerCircularFixed } from "spinners-react";
+import StatusSwitch from "../commons/StatusSwitch";
 
-const HSection1 = ({ open, handleOpen, data }) => {
+const HSection1 = ({ open, handleOpen, data, handleUpdate }) => {
   const { custom_logo } = useSelector((state) => state.home);
   const { colors } = useSelector((state) => state.global);
   const dispatch = useDispatch();
@@ -112,6 +113,10 @@ const HSection1 = ({ open, handleOpen, data }) => {
           </h1>
         </AccordionHeader>
         <AccordionBody>
+          <StatusSwitch
+            action={(value) => handleUpdate({ "hero_section.status": value })}
+            value={data?.status}
+          />
           <form onSubmit={handleSubmit(handleSave)} className="w-full">
             <div className="col-span-4">
               <label

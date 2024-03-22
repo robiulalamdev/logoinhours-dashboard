@@ -1,7 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import { HOME_SECTION_ANIMATION } from "@/lib/constants/globalConstant";
-import useViewImage from "@/lib/hooks/useViewImage";
-import { iUpload, trash } from "@/lib/icons/icons";
 import { Icon } from "@/lib/services/service";
 import { useToggleLandingMutation } from "@/redux/features/home/homeApi";
 import {
@@ -15,8 +13,9 @@ import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { toast } from "sonner";
 import { SpinnerCircularFixed } from "spinners-react";
+import StatusSwitch from "../commons/StatusSwitch";
 
-const HSection12 = ({ open, handleOpen, data }) => {
+const HSection12 = ({ open, handleOpen, data, handleUpdate }) => {
   const { colors } = useSelector((state) => state.global);
   const [toggleLanding, { isLoading }] = useToggleLandingMutation();
 
@@ -77,6 +76,10 @@ const HSection12 = ({ open, handleOpen, data }) => {
           </h1>
         </AccordionHeader>
         <AccordionBody>
+          <StatusSwitch
+            action={(value) => handleUpdate({ "client_reviews.status": value })}
+            value={data?.status}
+          />
           <form onSubmit={handleSubmit(handleSave)} className="w-full">
             <div className="mt-4">
               <label

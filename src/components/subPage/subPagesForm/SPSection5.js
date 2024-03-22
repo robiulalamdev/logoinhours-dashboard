@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import StatusSwitch from "@/components/commons/StatusSwitch";
 import { HOME_SECTION_ANIMATION } from "@/lib/constants/globalConstant";
 import { editor } from "@/lib/datas/globalDatas";
 import useViewImage from "@/lib/hooks/useViewImage";
@@ -18,7 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
 import { SpinnerCircularFixed } from "spinners-react";
 
-const SPSection5 = ({ open, handleOpen, data, id }) => {
+const SPSection5 = ({ open, handleOpen, data, id, handleUpdate }) => {
   const { colors } = useSelector((state) => state.global);
   const dispatch = useDispatch();
   const { viewImg } = useViewImage();
@@ -119,6 +120,10 @@ const SPSection5 = ({ open, handleOpen, data, id }) => {
           </h1>
         </AccordionHeader>
         <AccordionBody>
+          <StatusSwitch
+            action={(value) => handleUpdate(id, { "companies.status": value })}
+            value={data?.status}
+          />
           <form
             onSubmit={handleSubmit(handleSave)}
             className="w-full grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"

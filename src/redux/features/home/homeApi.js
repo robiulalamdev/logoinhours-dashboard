@@ -10,6 +10,14 @@ const homeApi = api.injectEndpoints({
       }),
       invalidatesTags: ["landing"],
     }),
+    updateLandingSectionStatus: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/landing/section-status/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["landing"],
+    }),
 
     getHome: builder.query({
       query: () => `/landing`,
@@ -18,4 +26,8 @@ const homeApi = api.injectEndpoints({
   }),
 });
 
-export const { useToggleLandingMutation, useGetHomeQuery } = homeApi;
+export const {
+  useToggleLandingMutation,
+  useGetHomeQuery,
+  useUpdateLandingSectionStatusMutation,
+} = homeApi;
