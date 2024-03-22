@@ -2,7 +2,7 @@ import AllCategories from "@/components/category/AllCategories";
 import NewCategory from "@/components/category/NewCategory";
 import PagesTab from "@/components/category/CategoryTab";
 import Head from "next/head";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetCategoriesQuery } from "@/redux/features/category/categoryApi";
 
@@ -11,7 +11,14 @@ const CategoryPage = () => {
   const { pagesTab, colors } = useSelector((state) => state.global);
   const dispatch = useDispatch();
 
-  console.log(data);
+  const [open, setOpen] = useState(false);
+  const [category, setCategory] = useState(null);
+
+  const handleUpdate = (cate) => {
+    setOpen(true);
+    setCategory(cate);
+  };
+
   return (
     <>
       <Head>
@@ -20,16 +27,21 @@ const CategoryPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="mt-[40px] h-full max-h-screen">
-        <PagesTab />
-        <div className="mt-[50px] overflow-y-auto">
-          <div className="mt-[20px]">
-            {pagesTab === 1 && (
-              <AllCategories categories={data?.data} isLoading={isLoading} />
-            )}
-            {pagesTab === 2 && <NewCategory />}
-          </div>
-        </div>
+        <AllCategories
+          categories={data?.data}
+          isLoading={isLoading}
+          open={open}
+          setOpen={setOpen}
+          handleUpdate={handleUpdate}
+        />
       </div>
+
+      <NewCategory
+        open={open}
+        close={setOpen}
+        category={category}
+        setCategory={setCategory}
+      />
     </>
   );
 };

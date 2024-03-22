@@ -1,15 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 import useViewImage from "@/lib/hooks/useViewImage";
-import { trash } from "@/lib/icons/icons";
+import { iEdit, trash } from "@/lib/icons/icons";
 import { useDeleteCategoryMutation } from "@/redux/features/category/categoryApi";
 import { Button, Card, CardBody, CardHeader } from "@material-tailwind/react";
 import moment from "moment";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "sonner";
 
-const CategoryCard = ({ data }) => {
+const CategoryCard = ({ data, handleUpdate }) => {
   const { viewImg } = useViewImage();
   const [deleteCategory, { isLoading }] = useDeleteCategoryMutation();
 
@@ -19,7 +19,6 @@ const CategoryCard = ({ data }) => {
       data: {},
     };
     const result = await deleteCategory(options);
-    console.log(result);
     if (result?.data?.success) {
       toast.success("Category Remove Success");
     } else {
@@ -44,6 +43,15 @@ const CategoryCard = ({ data }) => {
         className="absolute -top-2 -right-2 bg-white rounded-full w-8 h-8 flex justify-center items-center border text-red-600 cursor-pointer hover:bg-red-100"
       >
         {trash}
+      </div>
+
+      <div
+        onClick={() => {
+          handleUpdate(data);
+        }}
+        className="absolute -bottom-2 -right-2 bg-white rounded-full w-8 h-8 flex justify-center items-center border text-red-600 cursor-pointer hover:bg-red-100"
+      >
+        {iEdit}
       </div>
     </div>
   );

@@ -1,15 +1,22 @@
 /* eslint-disable @next/next/no-img-element */
+import useViewImage from "@/lib/hooks/useViewImage";
 import { iUpload } from "@/lib/icons/icons";
-import { useCreateCategoryMutation } from "@/redux/features/category/categoryApi";
-import { Button } from "@material-tailwind/react";
-import React, { useRef, useState } from "react";
+import {
+  useCreateCategoryMutation,
+  useUpdateCategoryMutation,
+} from "@/redux/features/category/categoryApi";
+import { setPagesTab } from "@/redux/features/globals/globalsSlice";
+import { Button, Dialog } from "@material-tailwind/react";
+import React, { useMemo, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
 import { SpinnerCircular, SpinnerCircularFixed } from "spinners-react";
 
-const NewCategory = () => {
+const NewCategory = ({ open, close, category, setCategory }) => {
   const [createCategory, { isLoading }] = useCreateCategoryMutation();
+  const [updateCategory, { isLoading: updateLoading }] =
+    useUpdateCategoryMutation();
   const { colors } = useSelector((state) => state.global);
   const [imgFile, setImgFile] = useState(null);
   const imgRef = useRef();
@@ -25,6 +32,19 @@ const NewCategory = () => {
     formState: { errors },
   } = useForm();
 
+  const { viewImg } = useViewImage();
+
+  const dispatch = useDispatch();
+
+  console.log(category?.image);
+
+  useMemo(() => {
+    if (category && open) {
+      setValue("name", category?.name);
+      setValue("description", category?.description);
+    }
+  }, [category]);
+
   const handleSave = async (data) => {
     const formData = new FormData();
 
@@ -37,25 +57,49 @@ const NewCategory = () => {
     if (data?.description) {
       formData.append("description", data?.description);
     }
-    const options = {
-      data: formData,
-    };
-    const result = await createCategory(options);
-    if (result?.data?.success) {
-      reset();
-      toast.success("Category Create Success");
-      setImgFile(null);
+
+    if (category?._id) {
+      const options = {
+        id: category?._id,
+        data: formData,
+      };
+      const result = await updateCategory(options);
+      if (result?.data?.success) {
+        toast.success("Category Update Success");
+        setImgFile(null);
+        setCategory(null);
+        close(false);
+      } else {
+        toast.error("Category Update Failed");
+      }
     } else {
-      toast.error("Category Create Failed");
+      const options = {
+        data: formData,
+      };
+      const result = await createCategory(options);
+      if (result?.data?.success) {
+        close(false);
+        reset();
+        toast.success("Category Create Success");
+        setImgFile(null);
+        setCategory(null);
+      } else {
+        toast.error("Category Create Failed");
+      }
     }
   };
   return (
-    <div>
+    <Dialog
+      size="md"
+      open={!!open}
+      handler={() => close(false)}
+      className="bg-white"
+    >
       <form
         onSubmit={handleSubmit(handleSave)}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-start gap-8 "
+        className="grid grid-cols-1 items-start gap-2 p-2 w-full max-w-[500px] mx-auto"
       >
-        <div className="grid md:grid-cols-2 gap-8 col-span-4">
+        <div className="grid grid-cols-1 gap-8">
           <div className="">
             <label
               className="text-xs sm:text-sm md:text-base font-bold uppercase leading-[26px] block"
@@ -66,12 +110,12 @@ const NewCategory = () => {
             <Button
               type="button"
               onClick={() => imgRef.current.click()}
-              className={`w-full h-[250px] rounded shadow-none border-2 hover:shadow-none bg-primary_gw flex flex-col justify-center gap-4 items-center`}
+              className={`w-full h-[150px] rounded shadow-none border-2 hover:shadow-none bg-primary_gw flex flex-col justify-center gap-4 items-center`}
             >
-              {imgFile ? (
+              {imgFile || category?.image ? (
                 <img
                   className="w-full h-full object-contain"
-                  src={URL.createObjectURL(imgFile)}
+                  src={viewImg(imgFile || category?.image)}
                   alt=""
                 />
               ) : (
@@ -107,11 +151,11 @@ const NewCategory = () => {
             <textarea
               {...register("description", { required: true })}
               placeholder="Enter Description"
-              className="w-full h-[250px] outline-none border border-black px-3 py-3 rounded text-sm resize-none"
+              className="w-full h-[100px] outline-none border border-black px-3 py-3 rounded text-sm resize-none"
             ></textarea>
           </div>
         </div>
-        <div className="col-span-4">
+        <div className="">
           <label
             className="text-xs sm:text-sm md:text-base font-bold uppercase leading-[26px] block"
             htmlFor=""
@@ -123,13 +167,13 @@ const NewCategory = () => {
             type="text"
             required
             placeholder="Enter Page Name"
-            className="w-full h-[42px] outline-none border border-black px-2 rounded text-sm"
+            className="w-full h-[38px] outline-none border border-black px-2 rounded text-sm"
           />
         </div>
-        <div className="col-span-4">
+        <div className="">
           <Button
             type="submit"
-            disabled={isLoading}
+            disabled={isLoading || updateLoading}
             className="flex justify-center items-center gap-2 max-w-[180px] w-full h-[48px] shadow-none hover:shadow-none rounded-sm"
             style={{ backgroundColor: colors.primary_color }}
           >
@@ -142,11 +186,20 @@ const NewCategory = () => {
                 secondaryColor="gray"
               />
             )}
-            Submit
+            {updateLoading && (
+              <SpinnerCircularFixed
+                size={30}
+                thickness={150}
+                speed={450}
+                color="white"
+                secondaryColor="gray"
+              />
+            )}
+            {category?._id ? "Update" : "Submit"}
           </Button>
         </div>
       </form>
-    </div>
+    </Dialog>
   );
 };
 
